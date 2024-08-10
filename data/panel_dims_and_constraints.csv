@@ -1,0 +1,2 @@
+a	b	balanced	symmetric	min_ply_share	ply_group	allow_zero_thickness_plies	min_num_of_covering_plies	max_num_of_contiguous_plies
+800	400	True	True	0.1	45 0 90 -45	False	2	4
