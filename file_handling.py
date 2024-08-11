@@ -7,6 +7,7 @@ import configparser as cp
 import pandas as pd
 
 import clt
+import gs_opt
 
 
 # For config files (given as configparser.ConfigParser instances):
@@ -38,6 +39,12 @@ def lc_from_config(config: cp.ConfigParser) -> clt.MembraneLoadCase:
 
 def dims_from_config(config: cp.ConfigParser) -> clt.Dimensions:
     return clt.Dimensions(float(config['DIMS']['a']), float(config['DIMS']['b']))
+
+
+def generic_panel_from_config(config: cp.ConfigParser) -> gs_opt.GenericPanel:
+    return gs_opt.GenericPanel(constr=constr_from_config(config),
+                               mat=mat_from_config(config),
+                               dims=dims_from_config(config))
 
 
 # For CSV files (given as pandas.DataFrame instances):

@@ -2,7 +2,6 @@
 Contains classes and functions related to the optimization of laminate stacking sequences based on generic stacks (see README.md for more information).
 """
 
-import configparser as cp
 import math
 import time
 import warnings
@@ -11,10 +10,10 @@ from typing import Optional, Any, Callable, Final
 import numpy as np
 import scipy.optimize as opt
 
-import clt
-import file_handling as io
-import auxs.config_auxs as cp_aux
+import auxs.configparser_auxs as cp_aux
 import auxs.scipy_auxs as sp_aux
+import clt
+import file_handling as fh
 
 
 class GenericPanel:
@@ -245,13 +244,6 @@ class GenericPanel:
         return clt.Panel(clt.Laminate(plies=[clt.Ply(self.mat, t_disc)] * len(disc_angles), angles=disc_angles, symmetric=True, odd=odd), self.dims)
 
 
-def generic_stack_from_config(config: cp.ConfigParser) -> GenericPanel:
-    constr = io.constr_from_config(config)
-    mat = io.mat_from_config(config)
-    dims = io.dims_from_config(config)
-    return GenericPanel(constr, mat, dims)
-
-
 # For testing:
 
 if __name__ == '__main__':
@@ -262,14 +254,14 @@ if __name__ == '__main__':
     config1 = cp_aux.read_config('data/config.ini')
 
     # Initialize panel and load case:
-    gp1: GenericPanel = generic_stack_from_config(config1)
-    lc1: clt.MembraneLoadCase = io.lc_from_config(config1)
+    gp1 = fh.generic_panel_from_config(config1)
+    lc1 = fh.lc_from_config(config1)
     print(gp1.constr)
 
     # Optimize the panel:
-    res: opt.OptimizeResult = gp1.optimize(lc1)
+    gp1.optimize(lc1)
 
-    # Print results:
+    # Print the results:
     p1_cont = gp1.export()
     print(f'\nWeight of the generic panel: {format(round(p1_cont.weight(), 3), '.3f')} kg')
     print(f'\nCombined reserve factor of the generic panel: {format(round(p1_cont.RF_biaxial_shear(lc1), 3), '.3f')}')

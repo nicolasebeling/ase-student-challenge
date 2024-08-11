@@ -3,7 +3,9 @@
 A first attempt at optimizing laminate stacking sequences with respect to stability failure (i.e. buckling of composite panels with simply supported edges under combined biaxial and shear loading).
 Based on generic stacks as explained by Ntourmas et al. in [1]. Uses a SciPy solver for optimization. Blending (the more difficult part) is not performed (yet).
 
-_Note: This code has not been sufficiently tested to say with certainty that the calculated solutions are indeed optimal (or almost optimal). In the current version, it is also not very efficient, even with respect to Python's standards, because new `clt.Panel` instances are created for every constraint evaluation, for example. This is because I reused code from other projects and may be improved in the future._
+_Note: This code has not been sufficiently tested to say with certainty that the calculated solutions are indeed optimal (or almost optimal). 
+In the current version, it is also not very efficient, even with respect to Python's standards, because new `clt.Panel` instances are created for every constraint evaluation, for example. 
+This is because I reused code from other projects and may be improved in the future._
 
 ## Usage
 
